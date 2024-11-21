@@ -14,7 +14,7 @@ class Usuarios {
     }
 
     public function existeEmail($email){
-        $sql=$this->con->conectar()-> ("SELECT id FROM usuarios WHERE email = :email");
+        $sql=$this->con->conectar() -> (" SELECT id FROM usuarios WHERE email = :email");
         $sql->bindParam(':email', $email, PDO::PARAM_STR);
         $sql->execute();
 
@@ -115,4 +115,20 @@ class Usuarios {
             }
         }
     }
+
+    public function deletar($id){
+        $sql = $this->con->conectar()->prepare("DELETE FROM usuarios WHERE id = :id");
+        $sql->bindValue(':id', $id);
+        $sql->execute();
+    }
+
+    public function getUsuario($id){
+        $array = $array();
+        $sql = $this->con->conectar()->prepare("SELECT * FROM usuarios WHERE id = :id");
+        $sql->bindValue(":id", $id);
+        $sql->execute();
+        if($sql->rowCount() > 0){
+            $array = $sql->fetch();
+        }
+        return $array;
 }
