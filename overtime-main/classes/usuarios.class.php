@@ -94,6 +94,21 @@ class Usuarios {
         }
     }
 
+    public function buscar($id){
+        try{
+            $sql = $this->con->conectar()->prepare("SELECT * FROM usuarios WHERE id = :id");
+            $sql->bindValue(':id', $id);
+            $sql->execute();
+            if($sql->rowCount() > 0){
+                return $sql->fetch();
+            }else{
+                return array();
+            }
+        }catch(PDOException $ex){
+            echo "ERRO: ".$ex->getMessage();
+        }
+    }
+
     public function editar($nome, $email, $senha, $permissoes, $id){
         $emailExistente = $this->existeEmail($email);
         if(count($emailExistente) > 0 && $emailExistente['id'] != $id){
@@ -131,4 +146,5 @@ class Usuarios {
             $array = $sql->fetch();
         }
         return $array;
+    }
 }
