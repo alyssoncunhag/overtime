@@ -8,9 +8,7 @@
     imagem: <br>
     <input type="text" name="imagem"/><br><br>
     ID Categoria: <br>
-    <input type="text" name="id_categoria"/><br><br>
-    ID Autor:
-    <input type="text" name="id_autor"/><br><br>
+    <input type="hidden" name="id_categoria"/><br><br>
     Data Publicação: <br>
     <input type="date" name="data_publicacao"/><br><br>
     <input type="submit" name="btCadastrar" value="ADICIONAR"/>

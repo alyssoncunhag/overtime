@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'classes/usuarios.class.php';
+require_once '../classes/usuarios.class.php';
 
 if(!empty($_POST['email'])){
     $email = addslashes($_POST['email']);
@@ -24,6 +24,6 @@ if(!empty($_POST['email'])){
     <input type="email" name="email"><br><br>
     Senha: <br>
     <input type="password" name="senha"><br><br>
-    <a href="esqueceuSenha.php">ESQUECEU SUA SENHA? CLIQUE AQUI!</a><br>
+    <a href="esqueceuSenha.php">esqueceu sua senha? clique aqui!</a><br>
     <input type="submit" value="Entrar">
 </form>

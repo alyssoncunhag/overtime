@@ -14,7 +14,7 @@ class Usuarios {
     }
 
     public function existeEmail($email){
-        $sql=$this->con->conectar() -> (" SELECT id FROM usuarios WHERE email = :email");
+        $sql = $this->con->conectar()->prepare("SELECT id FROM usuarios WHERE email = :email");
         $sql->bindParam(':email', $email, PDO::PARAM_STR);
         $sql->execute();
 

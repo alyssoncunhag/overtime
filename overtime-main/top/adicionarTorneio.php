@@ -4,7 +4,7 @@
     Nome: <br>
     <input type="text" name="nome"/><br><br>
     ID Jogo:
-    <input type="text" name="id_jogo"/><br><br>
+    <input type="hidden" name="id_jogo"/><br><br>
     Descrição:
     <input type="text" name="descricao"/><br><br>
     Data Início:
