@@ -63,12 +63,12 @@ public function listar(){
 public function buscar($id){
     try{
         $sql = $this->con->conectar()->prepare("SELECT * FROM jogos WHERE id = id");
-        $sql->bindValue('id', $id);
+        $sql->bindValue(':id', $id);
         $sql->execute();
         if($sql->rowCount() > 0){
             return $sql->fetch();
         }else{
-            return array;
+            return array();
         }
     }catch(PDOException $ex){
         echo 'ERRO: '.$ex->getMessage();
@@ -90,7 +90,7 @@ public function editar($nome, $descricao, $data_lancamento, $imagem, $id){
 
             if(count($imagem) > 0){
                 for($q=0; $q < count($imagem['tmp_name']); $q++){
-                    $tipo = $foto['type'][$q];
+                    $tipo = $imagem['type'][$q];
                     if(in_array($tipo, array('image/jpeg', 'image/png'))){
                         $tmpname = md5(time().rand(0, 9999)).'.jpg';
                         move_uploaded_file($imagem['tmp_name'][$q], 'img/jogos/'.$tmpname);
@@ -133,4 +133,5 @@ public function deletar($id){
     $sql = $this->con->conectar()->prepare("DELETE FROM jogos WHERE id = :id");
     $sql->bindValue(":id", $id);
     $sql->execute();
+}
 }

@@ -1,66 +1,184 @@
-/* Resetando alguns estilos básicos */
+/* Reset básico */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
 }
 
-/* Definindo o estilo para o body */
+/* Corpo da página */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    padding: 20px;
-}
-
-/* Estilo do título */
-h1 {
-    font-size: 32px;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-/* Estilo da linha horizontal */
-hr {
-    margin-bottom: 20px;
-    border: 0;
-    border-top: 2px solid #ddd;
-}
-
-/* Estilo para os botões */
-button {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
+    background-color: #1e1e1e;
+    color: #fff;
     font-size: 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-right: 10px;
+    line-height: 1.6;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Centraliza o conteúdo verticalmente */
+}
+
+/* Header e título principal */
+header {
+    text-align: center;
+    margin-top: 20px;
+    color: #fff;
+}
+
+h1 {
+    font-size: 2.5em;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: #fff;
     margin-bottom: 10px;
-    transition: background-color 0.3s;
+    font-weight: bold;
+    background: linear-gradient(45deg, #fff, #bbb);
+    -webkit-background-clip: text;
+    background-clip: text;
 }
 
-/* Efeito no botão ao passar o mouse */
+/* Subtítulo */
+.subtitle {
+    font-size: 1.2em;
+    margin-top: 5px;
+    color: #ccc;
+}
+
+/* Container dos botões */
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 40px;
+    width: 100%;
+    gap: 20px; /* Adiciona espaço entre os botões */
+}
+
+/* Estilo básico dos botões */
+button {
+    background-color: #333; /* Fundo cinza escuro */
+    color: #fff; /* Texto branco */
+    font-size: 1.2em;
+    padding: 40px; /* Aumenta o tamanho do botão */
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 200px; /* Define a largura fixa */
+    height: 200px; /* Torna os botões quadrados */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza o texto dentro do botão */
+    text-align: center;
+    opacity: 0; /* Inicialmente invisível para a animação */
+    animation: fadeIn 1s ease-out forwards; /* Aparece suavemente */
+    text-decoration: none; /* Garantir que não haja underline de link */
+}
+
+/* Animação de fade-in (sem deslocamento) */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* Efeitos de hover e active */
 button:hover {
-    background-color: #45a049;
+    background-color: #444; /* Muda a cor do botão no hover */
+    transform: translateY(-3px);
 }
 
-/* Estilo do link dentro dos botões */
-button a {
+button:active {
+    background-color: #555; /* Muda a cor do botão quando pressionado */
+    transform: translateY(1px);
+}
+
+/* Estilo do botão de logout */
+.logout-btn {
+    background-color: #f44336;
+    font-size: 1.5em;
+    margin-top: 40px;
+    padding: 20px 50px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards; /* Aparece suavemente */
+}
+
+.logout-btn a {
     color: white;
     text-decoration: none;
 }
 
-/* Efeito no link dentro do botão ao passar o mouse */
-button a:hover {
-    text-decoration: underline;
-}
-
-/* Estilo de botões de sair */
-button:last-child {
-    background-color: #f44336;
-}
-
-button:last-child:hover {
+.logout-btn:hover {
     background-color: #e53935;
+    transform: translateY(-3px);
+}
+
+.logout-btn:active {
+    background-color: #c62828;
+    transform: translateY(1px);
+}
+
+/* Efeitos de animação para a entrada da página */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+header, .button-container {
+    animation: fadeIn 1.5s ease-out forwards;
+}
+
+/* Adicionando um efeito sutil ao fundo */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/hero-background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    filter: blur(8px);
+    z-index: -1;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    body {
+        padding: 0 10px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .button-container {
+        flex-direction: column;
+    }
+
+    button {
+        font-size: 1em;
+        padding: 30px;
+        width: 150px;
+        height: 150px;
+    }
+
+    .logout-btn {
+        font-size: 1.2em;
+        padding: 12px 30px;
+    }
 }

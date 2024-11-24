@@ -26,41 +26,39 @@ class Usuarios {
     }
 
     public function adicionar($nome, $email, $senha, $permissoes){
-        // Verificar se permissões é uma string e se for, converte para array
-        if (is_string($permissoes)) {
-            $permissoes = explode(',', $permissoes); // Convertendo string de permissões para array
-        }
-    
-        // Verifica se o e-mail já existe
-        $emailExistente = $this->existeEmail($email);
-        if($emailExistente === false){  // Se o email não existir
-            try{
-                // Criptografando a senha antes de salvar no banco de dados
-                $senhaCriptografada = password_hash($senha, PASSWORD_DEFAULT);
-    
-                $this->nome = $nome;
-                $this->email = $email;
-                $this->senha = $senhaCriptografada; // Armazenando a senha criptografada
-                $this->permissoes = $permissoes;  // Garantir que seja um array
-    
-                // Agora convertendo o array de permissões para string antes de salvar no banco
-                $sql = $this->con->conectar()->prepare("INSERT INTO usuarios (nome, email, senha, permissoes) VALUES (:nome, :email, :senha, :permissoes)");
-                $sql->bindValue(":nome", $nome);
-                $sql->bindValue(":email", $email);
-                $sql->bindValue(":senha", $senhaCriptografada); // Salvando a senha criptografada
-                $sql->bindValue(":permissoes", implode(',', $permissoes));  // Convertendo array em string separada por vírgulas
-                $sql->execute();
-    
-                return TRUE;
-            }catch(PDOException $ex){
-                return 'ERRO: '.$ex->getMessage();
-            }
-        }else{
-            return FALSE;  // Email já existe
-        }
+    // Verificar se permissões é uma string e se for, converte para array
+    if (is_string($permissoes)) {
+        $permissoes = explode(',', $permissoes); // Convertendo string de permissões para array
     }
-    
-    
+
+    // Verifica se o e-mail já existe
+    $emailExistente = $this->existeEmail($email);
+    if($emailExistente === false){  // Se o email não existir
+        try{
+            // Criptografando a senha antes de salvar no banco de dados
+            $senhaCriptografada = password_hash($senha, PASSWORD_DEFAULT);
+
+            $this->nome = $nome;
+            $this->email = $email;
+            $this->senha = $senhaCriptografada; // Armazenando a senha criptografada
+            $this->permissoes = $permissoes;  // Garantir que seja um array
+
+            // Agora convertendo o array de permissões para string antes de salvar no banco
+            $sql = $this->con->conectar()->prepare("INSERT INTO usuarios (nome, email, senha, permissoes) VALUES (:nome, :email, :senha, :permissoes)");
+            $sql->bindValue(":nome", $nome);
+            $sql->bindValue(":email", $email);
+            $sql->bindValue(":senha", $senhaCriptografada); // Salvando a senha criptografada
+            $sql->bindValue(":permissoes", implode(',', $permissoes));  // Convertendo array em string separada por vírgulas
+            $sql->execute();
+
+            return TRUE;
+        }catch(PDOException $ex){
+            return 'ERRO: '.$ex->getMessage();
+        }
+    }else{
+        return FALSE;  // Email já existe
+    }
+}
     
 
     public function fazerLogin($email, $senha){

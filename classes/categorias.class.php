@@ -56,12 +56,12 @@ public function listar(){
 public function buscar($id){
     try{
         $sql = $this->con->conectar()->prepare("SELECT * FROM categorias WHERE id = id");
-        $sql->bindValue('id', $id);
+        $sql->bindValue(':id', $id);
         $sql->execute();
         if($sql->rowCount() > 0){
             return $sql->fetch();
         }else{
-            return array;
+            return array();
         }
     }catch(PDOException $ex){
         echo 'ERRO: '.$ex->getMessage();

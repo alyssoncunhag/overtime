@@ -35,7 +35,7 @@ public function adicionar($nome, $pais, $descricao, $imagem){
             $this->pais = $pais;
             $this->descricao = $descricao;
             $this->imagem = $imagem;
-            $sql = $this->con()->prepare("INSERT INTO times(nome, pais, descricao, imagem) VALUES ( :nome, :pais, :descricao, :imagem)");
+            $sql = $this->con->conectar()->prepare("INSERT INTO times(nome, pais, descricao, imagem) VALUES ( :nome, :pais, :descricao, :imagem)");
             $sql->bindParam(":nome", $this->nome, PDO::PARAM_STR);
             $sql->bindParam(":pais", $this->pais, PDO::PARAM_STR);
             $sql->bindParam(":descricao", $this->descricao, PDO::PARAM_STR);
@@ -63,12 +63,12 @@ public function listar(){
 public function buscar($id){
     try{
         $sql = $this->con->conectar()->prepare("SELECT * FROM times WHERE id = id");
-        $sql->bindValue('id', $id);
+        $sql->bindValue(':id', $id);
         $sql->execute();
         if($sql->rowCount() > 0){
             return $sql->fetch();
         }else{
-            return array;
+            return array();
         }
     }catch(PDOException $ex){
         echo 'ERRO: '.$ex->getMessage();
@@ -76,7 +76,7 @@ public function buscar($id){
 }
 
 public function editar($nome, $pais, $descricao, $imagem, $id){
-    $timeExistente = $this->existeTime($titulo);
+    $timeExistente = $this->existeTime($nome);
     if(count($timeExistente) > 0 && $timeExistente['id'] != $id){
         return FALSE;
     }else{
@@ -91,7 +91,7 @@ public function editar($nome, $pais, $descricao, $imagem, $id){
 
             if(count($imagem) > 0){
                 for($q=0; $q < count($imagem['tmp_name']); $q++){
-                    $tipo = $foto['type'][$q];
+                    $tipo = $imagem['type'][$q];
                     if(in_array($tipo, array('image/jpeg', 'image/png'))){
                         $tmpname = md5(time().rand(0, 9999)).'.jpg';
                         move_uploaded_file($imagem['tmp_name'][$q], 'img/times/'.$tmpname);

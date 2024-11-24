@@ -1,11 +1,11 @@
 <?php
 require 'conexao.class.php';
 
-class Jogos{
+class Torneios{
     private $id;
     private $nome;
     private $id_jogo;
-    private $descricao
+    private $descricao;
     private $data_inicio;
     private $data_fim;
     private $imagem;
@@ -41,10 +41,10 @@ public function adicionar($nome, $id_jogo, $descricao, $data_inicio, $data_fim, 
             $this->imagem = $imagem;
             $sql = $this->con()->prepare("INSERT INTO torneios(nome, id_jogo, descricao, data_inicio, data_fim, imagem) VALUES ( :nome, :id_jogo :descricao, :data_inicio, :data_fim, :imagem)");
             $sql->bindParam(":nome", $this->nome, PDO::PARAM_STR);
-            $sql->bindParam(":id_jogo", $id_jogo, PDO::
+            $sql->bindParam(":id_jogo", $this->$id_jogo, PDO::PARAM_STR);
             $sql->bindParam(":descricao", $this->descricao, PDO::PARAM_STR);
             $sql->bindParam(":data_inicio", $this->data_inicio, PDO::PARAM_STR);
-            $sql->bindParam(":data_fim", $data_fim, PDO::
+            $sql->bindParam(":data_fim", $this->$data_fim, PDO::PARAM_STR);
             $sql->bindParam(":imagem", $this->imagem, PDO::PARAM_STR);
             $sql->execute();
             return TRUE;
@@ -68,13 +68,13 @@ public function listar(){
 
 public function buscar($id){
     try{
-        $sql = $this->con->conectar()->prepare("SELECT * FROM torneio WHERE id = id");
-        $sql->bindValue('id', $id);
+        $sql = $this->con->conectar()->prepare("SELECT * FROM torneios WHERE id = id");
+        $sql->bindValue(':id', $id);
         $sql->execute();
         if($sql->rowCount() > 0){
             return $sql->fetch();
         }else{
-            return array;
+            return array();
         }
     }catch(PDOException $ex){
         echo 'ERRO: '.$ex->getMessage();
@@ -98,7 +98,7 @@ public function editar($nome, $id_jogo, $descricao, $data_inicio, $data_fim, $im
 
             if(count($imagem) > 0){
                 for($q=0; $q < count($imagem['tmp_name']); $q++){
-                    $tipo = $foto['type'][$q];
+                    $tipo = $imagem['type'][$q];
                     if(in_array($tipo, array('image/jpeg', 'image/png'))){
                         $tmpname = md5(time().rand(0, 9999)).'.jpg';
                         move_uploaded_file($imagem['tmp_name'][$q], 'img/torneios/'.$tmpname);
@@ -138,7 +138,7 @@ public function editar($nome, $id_jogo, $descricao, $data_inicio, $data_fim, $im
 }
 
 public function deletar($id){
-    $sql = $this->con->conectar()->prepare("DELETE FROM torneio WHERE id = :id");
+    $sql = $this->con->conectar()->prepare("DELETE FROM torneios WHERE id = :id");
     $sql->bindValue(":id", $id);
     $sql->execute();
 }
