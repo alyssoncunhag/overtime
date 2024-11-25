@@ -93,7 +93,7 @@ public function editar($titulo, $conteudo, $imagem, $id_categoria, $id_autor, $d
             $sql->bindValue(":id_categoria", $id_categoria);
             $sql->bindValue(":id_autor", $id_autor);
             $sql->bindValue(":data_publicacao", $data_publicacao);
-            $sql->bindValue("id", $id);
+            $sql->bindValue(":id", $id);
             $sql->execute();
 
             if(count($imagem) > 0){

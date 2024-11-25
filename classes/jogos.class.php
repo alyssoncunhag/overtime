@@ -12,45 +12,48 @@ class Jogos{
 
     public function __construct(){
         $this->con = new Conexao();
+        $this->permissoes = [];
     }
 
     private function existeJogo($nome){
         $sql = $this->con->conectar()->prepare("SELECT id FROM jogos WHERE nome = :nome");
         $sql->bindParam(':nome', $nome, PDO::PARAM_STR);
         $sql->execute();
-
-        if( $sql->rowCount() > 0){
+    
+        if ($sql->rowCount() > 0) {
             $array = $sql->fetch();
-    }else{
-        $array = array();
+        } else {
+            $array = array();
+        }
+        return $array;
     }
-    return $array;
-}
+    
 
 public function adicionar($nome, $descricao, $data_lancamento, $imagem){
     $existeJogo = $this->existeJogo($nome);
-    if(count( $existeJogo) == 0){
+    if(count($existeJogo) == 0){
         try{
             $this->nome = $nome;
             $this->descricao = $descricao;
-            $this->$data_lancamento = $data_lancamento;
+            $this->data_lancamento = $data_lancamento; // Corrigido
             $this->imagem = $imagem;
-            $sql = $this->con()->prepare("INSERT INTO jogos(nome, descricao, data_lancamento, imagem) VALUES ( :nome, :descricao, :data_lancamento, :imagem)");
+            $sql = $this->con->conectar()->prepare("INSERT INTO jogos (nome, descricao, data_lancamento, imagem) VALUES (:nome, :descricao, :data_lancamento, :imagem)");
             $sql->bindParam(":nome", $this->nome, PDO::PARAM_STR);
             $sql->bindParam(":descricao", $this->descricao, PDO::PARAM_STR);
             $sql->bindParam(":data_lancamento", $this->data_lancamento, PDO::PARAM_STR);
             $sql->bindParam(":imagem", $this->imagem, PDO::PARAM_STR);
             $sql->execute();
             return TRUE;
-        }catch(PDOException $ex){
-            return "ERRO: ".$ex->getMessage();
+        } catch(PDOException $ex){
+            return "ERRO: " . $ex->getMessage();
         }
-    }else{
+    } else {
         return FALSE;
     }
 }
 
-public function listar(){
+
+public function listar() {
     try{
         $sql = $this->con->conectar()->prepare("SELECT * FROM jogos");
         $sql->execute();
@@ -85,7 +88,7 @@ public function editar($nome, $descricao, $data_lancamento, $imagem, $id){
             $sql->bindValue(":nome", $nome);
             $sql->bindValue(":descricao", $descricao);
             $sql->bindValue(":data_lancamento", $data_lancamento);
-            $sql->bindValue("id", $id);
+            $sql->bindValue(":id", $id);
             $sql->execute();
 
             if(count($imagem) > 0){

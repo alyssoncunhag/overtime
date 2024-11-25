@@ -93,7 +93,7 @@ public function editar($nome, $id_jogo, $descricao, $data_inicio, $data_fim, $im
             $sql->bindValue(":descricao", $descricao);
             $sql->bindValue(":data_inicio", $data_inicio);
             $sql->bindValue(":data_fim", $data_fim);
-            $sql->bindValue("id", $id);
+            $sql->bindValue(":id", $id);
             $sql->execute();
 
             if(count($imagem) > 0){

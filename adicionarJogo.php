@@ -30,7 +30,7 @@
             
             <div class="input-group">
                 <label for="imagem">Imagem:</label>
-                <input type="text" id="imagem" name="imagem" required />
+                <input type="file" id="imagem" name="imagem" required />
             </div>
 
             <div class="button-container">

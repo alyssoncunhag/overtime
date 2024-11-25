@@ -86,7 +86,7 @@ public function editar($nome, $pais, $descricao, $imagem, $id){
             $sql->bindValue(":pais", $pais);
             $sql->bindValue(":descricao", $descricao);
             $sql->bindValue(":imagem", $imagem);
-            $sql->bindValue("id", $id);
+            $sql->bindValue(":id", $id);
             $sql->execute();
 
             if(count($imagem) > 0){
