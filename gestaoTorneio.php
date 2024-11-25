@@ -23,12 +23,14 @@ $torneio = new Torneios();
         <h1>Gestão de Torneios</h1>
     </header>
     
+    <!-- Botão para adicionar torneio -->
     <div class="button-container">
         <a href="adicionarTorneio.php" class="button">ADICIONAR</a>
     </div>
 
     <hr>
 
+    <!-- Tabela de torneios -->
     <div class="table-container">
         <table>
             <thead>

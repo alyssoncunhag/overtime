@@ -1,15 +1,15 @@
 <?php
-include 'classes/times.class.php';
-$time = new Times();
+include 'classes/noticias.class.php';
+$noticia = new Noticias();
 
-if(!empty($_POST['nome'])){
-    $nome = $_POST['nome'];
-    $pais = $_POST['pais'];
-    $descricao = $_POST['descricao'];
+if(!empty($_POST['id'])){
+    $titulo = $_POST['nome'];
+    $conteudo = $_POST['conteudo'];
     $imagem = $_POST['imagem'];
-    $time->adicionar($nome, $pais, $descricao, $imagem);
+    $id_categoria = $_POST['id_categoria'];
+    $data_publicacao = $_POST['data_publicacao'];
+    $noticia->adicionar($titulo, $conteudo, $imagem, $id_categoria, $data_publicacao);
     header('Location: index.php');
 }else{
-    echo '<script type="text/javascript">alert("Time já cadastrado!");</script>';
+    echo '<script type="text/javascript">alert("Noticia já cadastrado!");<script>';
 }
-

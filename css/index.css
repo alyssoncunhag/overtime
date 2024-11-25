@@ -1,184 +1,114 @@
-/* Reset básico */
+/* Resetando margens e paddings para garantir consistência */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* Definindo o fundo e cores principais */
+body {
+    background-color: #f8f9fa; /* Cor de fundo suave */
+    color: #343a40; /* Texto em cinza escuro */
     font-family: 'Arial', sans-serif;
 }
 
-/* Corpo da página */
-body {
-    background-color: #1e1e1e;
-    color: #fff;
-    font-size: 16px;
-    line-height: 1.6;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh; /* Centraliza o conteúdo verticalmente */
-}
-
-/* Header e título principal */
+/* Header */
 header {
+    background-color: #343a40;
+    color: white;
     text-align: center;
-    margin-top: 20px;
-    color: #fff;
+    padding: 40px 0;
 }
 
-h1 {
-    font-size: 2.5em;
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    color: #fff;
-    margin-bottom: 10px;
+header h1 {
+    font-size: 2.5rem;
     font-weight: bold;
-    background: linear-gradient(45deg, #fff, #bbb);
-    -webkit-background-clip: text;
-    background-clip: text;
 }
 
-/* Subtítulo */
-.subtitle {
-    font-size: 1.2em;
-    margin-top: 5px;
-    color: #ccc;
+header .subtitle {
+    font-size: 1.25rem;
+    margin-top: 10px;
 }
 
-/* Container dos botões */
+/* Conteúdo Principal */
+.main-content {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Botões */
 .button-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 40px;
-    width: 100%;
-    gap: 20px; /* Adiciona espaço entre os botões */
+    gap: 15px;
+    justify-content: space-between;
 }
 
-/* Estilo básico dos botões */
-button {
-    background-color: #333; /* Fundo cinza escuro */
-    color: #fff; /* Texto branco */
-    font-size: 1.2em;
-    padding: 40px; /* Aumenta o tamanho do botão */
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    font-weight: bold;
-    text-transform: uppercase;
-    width: 200px; /* Define a largura fixa */
-    height: 200px; /* Torna os botões quadrados */
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Centraliza o texto dentro do botão */
-    text-align: center;
-    opacity: 0; /* Inicialmente invisível para a animação */
-    animation: fadeIn 1s ease-out forwards; /* Aparece suavemente */
-    text-decoration: none; /* Garantir que não haja underline de link */
-}
-
-/* Animação de fade-in (sem deslocamento) */
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-/* Efeitos de hover e active */
-button:hover {
-    background-color: #444; /* Muda a cor do botão no hover */
-    transform: translateY(-3px);
-}
-
-button:active {
-    background-color: #555; /* Muda a cor do botão quando pressionado */
-    transform: translateY(1px);
-}
-
-/* Estilo do botão de logout */
-.logout-btn {
-    background-color: #f44336;
-    font-size: 1.5em;
-    margin-top: 40px;
-    padding: 20px 50px;
-    border-radius: 8px;
-    font-weight: bold;
-    text-transform: uppercase;
-    opacity: 0;
-    animation: fadeIn 1s ease-out forwards; /* Aparece suavemente */
-}
-
-.logout-btn a {
+.button-container button {
+    background-color: #343a40;
     color: white;
-    text-decoration: none;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    width: calc(33% - 10px);
+    transition: background-color 0.3s;
+}
+
+.button-container button:hover {
+    background-color: #495057;
+}
+
+.button-container button:active {
+    background-color: #212529;
+}
+
+/* Botão de logout */
+.logout-btn {
+    background-color: #dc3545;
+    color: white;
+    padding: 12px 25px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    width: 200px;
+    margin-top: 30px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .logout-btn:hover {
-    background-color: #e53935;
-    transform: translateY(-3px);
+    background-color: #c82333;
 }
 
 .logout-btn:active {
-    background-color: #c62828;
-    transform: translateY(1px);
+    background-color: #bd2130;
 }
 
-/* Efeitos de animação para a entrada da página */
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-header, .button-container {
-    animation: fadeIn 1.5s ease-out forwards;
-}
-
-/* Adicionando um efeito sutil ao fundo */
-body::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
+/* Footer */
+footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: fixed;
     width: 100%;
-    height: 100%;
-    background: url('images/hero-background.jpg') no-repeat center center fixed;
-    background-size: cover;
-    filter: blur(8px);
-    z-index: -1;
+    bottom: 0;
+    left: 0;
 }
 
-/* Responsividade para telas menores */
-@media (max-width: 768px) {
-    body {
-        padding: 0 10px;
-    }
+footer a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 5px;
+}
 
-    h1 {
-        font-size: 2em;
-    }
-
-    .button-container {
-        flex-direction: column;
-    }
-
-    button {
-        font-size: 1em;
-        padding: 30px;
-        width: 150px;
-        height: 150px;
-    }
-
-    .logout-btn {
-        font-size: 1.2em;
-        padding: 12px 30px;
-    }
+footer a:hover {
+    text-decoration: underline;
 }

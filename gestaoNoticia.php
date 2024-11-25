@@ -37,8 +37,8 @@ $noticia = new Noticias();
                     <th>Título</th>
                     <th>Conteúdo</th>
                     <th>Imagem</th>
-                    <th>ID Categoria</th>
-                    <th>ID Autor</th>
+                    <th>Categoria</th>
+                    <th>Autor</th>
                     <th>Data de Publicação</th>
                     <th>Ações</th>
                 </tr>

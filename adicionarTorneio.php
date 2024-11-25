@@ -19,8 +19,8 @@
             </div>
             
             <div class="input-group">
-                <label for="id_jogo">ID do Jogo:</label>
-                <input type="hidden" id="id_jogo" name="id_jogo" value="1" required />
+                <label for="id_jogo">ID Jogo:</label>
+                <input type="text" id="id_jogo" name="id_jogo" required />
             </div>
             
             <div class="input-group">

@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adicionar Usuário - Sistema</title>
+    <title>Adicionar Usuário - OVERTIME</title>
     <link rel="stylesheet" href="css/adicionarUsuario.css"> <!-- Linkando o CSS -->
 </head>
 <body>
+    <!-- Header -->
     <header>
-        <h1>ADICIONAR USUÁRIO</h1>
+        <h1>Adicionar Usuário</h1>
     </header>
 
+    <!-- Formulário para Adicionar Usuário -->
     <div class="form-container">
         <form method="POST" action="adicionarUsuarioSubmit.php">
             <div class="input-group">
@@ -34,7 +36,7 @@
             </div>
 
             <div class="button-container">
-                <input type="submit" name="btCadastrar" value="ADICIONAR" class="submit-button" />
+                <input type="submit" name="btCadastrar" value="Adicionar" class="submit-button" />
             </div>
         </form>
     </div>

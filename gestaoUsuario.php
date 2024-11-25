@@ -19,16 +19,19 @@ $usuario = new Usuarios();
     <link rel="stylesheet" href="css/gestaoUsuario.css"> <!-- Linkando o CSS -->
 </head>
 <body>
+    <!-- Cabeçalho -->
     <header>
         <h1>Gestão de Usuários</h1>
     </header>
     
+    <!-- Botão para adicionar usuário -->
     <div class="button-container">
         <a href="adicionarUsuario.php" class="button">ADICIONAR</a>
     </div>
 
     <hr>
 
+    <!-- Tabela de usuários -->
     <div class="table-container">
         <table>
             <thead>
