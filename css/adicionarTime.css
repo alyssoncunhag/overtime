@@ -1,0 +1,85 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Corpo da página */
+body {
+    background-color: #000;
+    color: #fff;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Header */
+header {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Formulário */
+.form-container {
+    background-color: #111;
+    padding: 20px;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #555;
+    border-radius: 3px;
+    background-color: #222;
+    color: #fff;
+}
+
+.input-group input:focus {
+    border-color: #fff;
+    outline: none;
+}
+
+/* Botão */
+.button-container {
+    text-align: center;
+}
+
+.submit-button {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: 1px solid #555;
+    border-radius: 3px;
+    background-color: #222;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #333;
+}
