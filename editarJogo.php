@@ -1,14 +1,17 @@
 <?php
 // Incluir a classe de jogos
-require 'classes/jogos.class.php';
+require_once 'classes/jogos.class.php';
 
 $jogo = new Jogos();
 
 // Verificar se o ID foi passado para buscar o jogo a ser editado
-if(isset($_GET['id'])){
-    $id = $_GET['id'];
+if (isset($_GET['id']) && !empty($_GET['id'])) {
+    // Sanitizar o ID
+    $id = filter_var($_GET['id'], FILTER_SANITIZE_NUMBER_INT);
     $jogoInfo = $jogo->buscar($id);
-    if(empty($jogoInfo)) {
+
+    // Verificar se o jogo existe
+    if (empty($jogoInfo)) {
         echo "Jogo não encontrado.";
         exit;
     }
@@ -28,21 +31,29 @@ if(isset($_GET['id'])){
 <body>
     <h2>Editar Jogo</h2>
     <form action="editarJogoSubmit.php" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="<?= $jogoInfo['id']; ?>">
+    <!-- Campo oculto para o ID do jogo -->
+    <input type="hidden" name="id" value="<?= htmlspecialchars($jogoInfo['id'], ENT_QUOTES, 'UTF-8'); ?>">
 
-        <label for="nome">Nome do Jogo:</label>
-        <input type="text" id="nome" name="nome" value="<?= $jogoInfo['nome']; ?>" required><br>
+    <!-- Nome do Jogo -->
+    <label for="nome">Nome do Jogo:</label>
+    <input type="text" id="nome" name="nome" 
+           value="<?= htmlspecialchars($jogoInfo['nome'], ENT_QUOTES, 'UTF-8'); ?>" required><br>
 
-        <label for="descricao">Descrição:</label>
-        <textarea id="descricao" name="descricao" required><?= $jogoInfo['descricao']; ?></textarea><br>
+    <!-- Descrição -->
+    <label for="descricao">Descrição:</label>
+    <textarea id="descricao" name="descricao" required><?= htmlspecialchars($jogoInfo['descricao'], ENT_QUOTES, 'UTF-8'); ?></textarea><br>
 
-        <label for="data_lancamento">Data de Lançamento:</label>
-        <input type="date" id="data_lancamento" name="data_lancamento" value="<?= $jogoInfo['data_lancamento']; ?>" required><br>
+    <!-- Data de Lançamento -->
+    <label for="data_lancamento">Data de Lançamento:</label>
+    <input type="date" id="data_lancamento" name="data_lancamento" 
+           value="<?= htmlspecialchars($jogoInfo['data_lancamento'], ENT_QUOTES, 'UTF-8'); ?>" required><br>
 
-        <label for="imagem">Imagem:</label>
-        <input type="file" name="imagem[]" multiple><br>
+    <!-- Imagem -->
+    <label for="imagem">Imagem:</label>
+    <input type="file" id="imagem" name="imagem" accept="image/*"><br>
 
-        <button type="submit">Salvar Alterações</button>
-    </form>
+    <button type="submit">Salvar Alterações</button>
+</form>
+
 </body>
 </html>

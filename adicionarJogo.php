@@ -12,7 +12,7 @@
     </header>
 
     <div class="form-container">
-        <form method="POST" action="adicionarJogoSubmit.php">
+    <form action="adicionarJogoSubmit.php" method="post" enctype="multipart/form-data">
             <div class="input-group">
                 <label for="nome">Nome do Jogo:</label>
                 <input type="text" id="nome" name="nome" required />
