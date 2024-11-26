@@ -1,26 +1,32 @@
 <?php
-include 'classes/categorias.class.php'; // Corrigido o ponto e vírgula no final
-$categoria = new Categorias(); // Objeto da classe Categorias
+// Inclui o arquivo da classe 'Categorias', que contém os métodos para manipular as categorias no banco de dados
+include 'classes/categorias.class.php'; 
 
-// Verifica se o formulário foi enviado
+// Cria um objeto da classe 'Categorias' para interagir com o banco de dados
+$categoria = new Categorias(); 
+
+// Verifica se os campos 'nome' e 'descricao' foram preenchidos no formulário
 if (isset($_POST['nome']) && isset($_POST['descricao'])) {
+    // Recupera os valores dos campos 'nome' e 'descricao' do formulário
     $nome = $_POST['nome'];
     $descricao = $_POST['descricao'];
 
+    // Verifica se a variável '$id' está definida e não está vazia (indicando que é uma edição)
     if (isset($id) && !empty($id)) {
-        // Se o ID estiver presente, chama o método de edição
+        // Se o ID estiver presente, chama o método 'editar' da classe 'Categorias' para atualizar a categoria
         $resultado = $categoria->editar($id, $nome, $descricao);
     } else {
-        // Se o ID não estiver presente, chama o método de adicionar
+        // Se o ID não estiver presente, chama o método 'adicionar' para adicionar uma nova categoria
         $resultado = $categoria->adicionar($nome, $descricao);
     }
 
+    // Verifica se a operação foi bem-sucedida
     if ($resultado === TRUE) {
-        // Categoria adicionada ou editada com sucesso
+        // Se a operação foi bem-sucedida, redireciona o usuário para a página principal (index.php)
         header('Location: index.php');
-        exit();
+        exit();  // Interrompe a execução do script após o redirecionamento
     } else {
-        // Exibe mensagem de erro
+        // Se a operação falhou, exibe um alerta com a mensagem de erro retornada
         echo '<script type="text/javascript">alert("' . $resultado . '");</script>';
     }
 }

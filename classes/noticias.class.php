@@ -1,37 +1,45 @@
 <?php
+// Requer a classe de conexão com o banco de dados
 require 'conexao.class.php';
 
 class Noticias {
-    private $id;
-    private $titulo;
-    private $conteudo;
-    private $imagem;
-    private $id_categorias;
-    private $id_autor;
-    private $data_publicacao;
+    private $id; // ID da notícia
+    private $titulo; // Título da notícia
+    private $conteudo; // Conteúdo da notícia
+    private $imagem; // Imagem associada à notícia
+    private $id_categorias; // Categoria da notícia (relacionada com tabela de categorias)
+    private $id_autor; // Autor da notícia (relacionada com tabela de usuários)
+    private $data_publicacao; // Data de publicação da notícia
 
-    private $con;
+    private $con; // Instância de conexão com o banco
 
+    // Construtor da classe, cria a conexão com o banco
     public function __construct() {
-        $this->con = new Conexao();
+        $this->con = new Conexao(); // Instancia a classe de conexão
     }
 
+    // Função que verifica se uma notícia com o título especificado já existe no banco
     private function existeNoticia($titulo) {
+        // Prepara uma consulta SQL para verificar a existência do título no banco
         $sql = $this->con->conectar()->prepare("SELECT id FROM noticias WHERE titulo = :titulo");
-        $sql->bindParam(':titulo', $titulo, PDO::PARAM_STR);
-        $sql->execute();
+        $sql->bindParam(':titulo', $titulo, PDO::PARAM_STR); // Bind do parâmetro título
+        $sql->execute(); // Executa a consulta
 
+        // Se encontrar, retorna o primeiro resultado encontrado, caso contrário, retorna um array vazio
         if ($sql->rowCount() > 0) {
-            return $sql->fetch(); // Retorna o primeiro resultado encontrado
+            return $sql->fetch(); // Retorna a primeira linha encontrada
         } else {
-            return []; // Retorna um array vazio quando não encontrar notícias
+            return []; // Retorna um array vazio caso não encontre nenhuma notícia
         }
     }
 
+    // Função para adicionar uma nova notícia no banco
     public function adicionar($titulo, $conteudo, $imagem, $id_categorias, $id_autor, $data_publicacao) {
+        // Verifica se a notícia já existe
         $existeNoticia = $this->existeNoticia($titulo);
-        if (empty($existeNoticia)) { // Verifica se a notícia já existe
+        if (empty($existeNoticia)) { // Se a notícia não existir, segue com o processo de adicionar
             try {
+                // Atribui os parâmetros aos atributos da classe
                 $this->titulo = $titulo;
                 $this->conteudo = $conteudo;
                 $this->imagem = $imagem;
@@ -39,6 +47,7 @@ class Noticias {
                 $this->id_autor = $id_autor;
                 $this->data_publicacao = $data_publicacao;
 
+                // Prepara a consulta SQL para inserir a notícia no banco de dados
                 $sql = $this->con->conectar()->prepare("INSERT INTO noticias(titulo, conteudo, imagem, id_categorias, id_autor, data_publicacao) VALUES (:titulo, :conteudo, :imagem, :id_categorias, :id_autor, :data_publicacao)");
                 $sql->bindParam(":titulo", $this->titulo, PDO::PARAM_STR);
                 $sql->bindParam(":conteudo", $this->conteudo, PDO::PARAM_STR);
@@ -47,53 +56,61 @@ class Noticias {
                 $sql->bindParam(":id_autor", $this->id_autor, PDO::PARAM_INT);
                 $sql->bindParam(":data_publicacao", $this->data_publicacao, PDO::PARAM_STR);
 
-                $sql->execute();
+                $sql->execute(); // Executa a consulta no banco
                 echo "Notícia adicionada com sucesso!";
-                return TRUE;
+                return TRUE; // Retorna TRUE se deu tudo certo
             } catch(PDOException $ex) {
+                // Exibe a mensagem de erro caso ocorra
                 echo "Erro ao adicionar notícia: " . $ex->getMessage();
-                return "ERRO: ".$ex->getMessage();
+                return "ERRO: ".$ex->getMessage(); // Retorna o erro caso ocorra algum problema
             }
         } else {
             return FALSE; // Retorna FALSE caso a notícia já exista
         }
     }
 
+    // Função para listar todas as notícias do banco
     public function listar() {
         try {
+            // Prepara a consulta SQL para pegar todas as notícias
             $sql = $this->con->conectar()->prepare("SELECT * FROM noticias");
-            $sql->execute();
-            $noticias = $sql->fetchAll();
+            $sql->execute(); // Executa a consulta
+            $noticias = $sql->fetchAll(); // Pega todas as notícias
             if (empty($noticias)) {
-                return [];  // Retorna um array vazio caso não haja notícias
+                return [];  // Retorna um array vazio se não encontrar notícias
             }
-            return $noticias;
+            return $noticias; // Retorna as notícias encontradas
         } catch(PDOException $ex) {
+            // Se ocorrer erro, exibe a mensagem de erro
             echo "ERRO: ".$ex->getMessage();
         }
     }
 
+    // Função para buscar uma notícia pelo ID
     public function buscar($id) {
         try {
+            // Prepara a consulta SQL para buscar a notícia pelo ID
             $sql = $this->con->conectar()->prepare("SELECT * FROM noticias WHERE id = :id");
-            $sql->bindValue(':id', $id);
-            $sql->execute();
+            $sql->bindValue(':id', $id); // Faz o bind do parâmetro ID
+            $sql->execute(); // Executa a consulta
             if ($sql->rowCount() > 0) {
-                return $sql->fetch();
+                return $sql->fetch(); // Se encontrar, retorna os dados da notícia
             } else {
-                return [];  // Retorna um array vazio se não encontrar
+                return [];  // Retorna um array vazio caso não encontre
             }
         } catch(PDOException $ex) {
+            // Exibe a mensagem de erro em caso de falha
             echo 'ERRO: '.$ex->getMessage();
         }
     }
 
+    // Função para editar uma notícia existente
     public function editar($titulo, $conteudo, $imagem, $id_categorias, $id_autor, $data_publicacao, $id){
+        // Verifica se a notícia com o mesmo título já existe (e se não é a mesma notícia)
         $noticiaExistente = $this->existeNoticia($titulo);
         
-        // Verifica se a notícia já existe e se o ID é diferente
         if($noticiaExistente && $noticiaExistente['id'] != $id){
-            return FALSE;
+            return FALSE; // Retorna FALSE se a notícia com esse título já existir e não for a mesma
         } else {
             try {
                 // Atualiza os dados da notícia
@@ -104,17 +121,18 @@ class Noticias {
                 $sql->bindValue(":id_autor", $id_autor);
                 $sql->bindValue(":data_publicacao", $data_publicacao);
                 $sql->bindValue(":id", $id);
-                $sql->execute();
+                $sql->execute(); // Executa a consulta de atualização
     
-                // Verifica se imagens foram enviadas e realiza o processamento
+                // Se uma imagem for enviada, processa e salva no banco
                 if (isset($imagem['tmp_name']) && !empty($imagem['tmp_name']) && is_array($imagem['tmp_name'])) {
+                    // Processa a imagem (redimensionamento e move para o diretório de imagens)
                     for ($q = 0; $q < count($imagem['tmp_name']); $q++) {
-                        $tipo = $imagem['type'][$q];
-                        if (in_array($tipo, ['image/jpeg', 'image/png'])) {
-                            $tmpname = md5(time() . rand(0, 9999)) . '.jpg';
+                        $tipo = $imagem['type'][$q]; // Tipo de imagem
+                        if (in_array($tipo, ['image/jpeg', 'image/png'])) { // Se for imagem JPEG ou PNG
+                            $tmpname = md5(time() . rand(0, 9999)) . '.jpg'; // Cria um nome único para a imagem
                             if (is_uploaded_file($imagem['tmp_name'][$q])) {
-                                move_uploaded_file($imagem['tmp_name'][$q], 'img/noticias/' . $tmpname);
-    
+                                move_uploaded_file($imagem['tmp_name'][$q], 'img/noticias/' . $tmpname); // Move a imagem
+
                                 // Redimensiona a imagem
                                 list($width_orig, $height_orig) = getimagesize('img/noticias/' . $tmpname);
                                 $ratio = $width_orig / $height_orig;
@@ -135,30 +153,31 @@ class Noticias {
                                     $origi = imagecreatefrompng('img/noticias/' . $tmpname);
                                 }
                                 imagecopyresampled($img, $origi, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
-                                imagejpeg($img, 'img/noticias/' . $tmpname, 80);
-    
-                                // Insere a imagem no banco de dados
+                                imagejpeg($img, 'img/noticias/' . $tmpname, 80); // Salva a imagem redimensionada
+
+                                // Insere a imagem no banco
                                 $sql = $this->con->conectar()->prepare("INSERT INTO imagem_noticia (id_noticia, url) VALUES (:id_noticia, :url)");
                                 $sql->bindValue(":id_noticia", $id);
                                 $sql->bindValue(":url", $tmpname);
-                                $sql->execute();
+                                $sql->execute(); // Executa a inserção da imagem
                             }
                         }
                     }
                 }
     
-                return TRUE;
+                return TRUE; // Retorna TRUE se a edição foi bem-sucedida
             } catch (PDOException $ex) {
-                echo 'ERRO: ' . $ex->getMessage();
+                echo 'ERRO: ' . $ex->getMessage(); // Exibe erro em caso de falha
             }
         }
     }
-    
 
+    // Função para deletar uma notícia do banco
     public function deletar($id) {
+        // Prepara a consulta SQL para deletar a notícia
         $sql = $this->con->conectar()->prepare("DELETE FROM noticias WHERE id = :id");
-        $sql->bindValue(":id", $id);
-        $sql->execute();
+        $sql->bindValue(":id", $id); // Faz o bind do ID
+        $sql->execute(); // Executa a consulta para deletar
     }
 }
 ?>
