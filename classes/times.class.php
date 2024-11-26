@@ -104,18 +104,37 @@ class Times {
                 $sql->execute();
 
                 // Se houver uma imagem, somente atualiza o campo imagem
-                if (!empty($imagem)) {
+        // Executa a consulta de atualização
+        if ($sql->execute()) {
+            // Se houver uma imagem nova, processa e move a imagem para o diretório
+            if ($imagem && isset($imagem['tmp_name']) && $imagem['tmp_name']) {
+                $tipo = $imagem['type'];
+                if (in_array($tipo, array('image/jpeg', 'image/png'))) {
+                    // Gera um nome único para a imagem e move para o diretório adequado
+                    $tmpname = md5(time() . rand(0, 9999)) . '.jpg';
+                    move_uploaded_file($imagem['tmp_name'], 'img/times/' . $tmpname);
+
+                    // Atualiza a imagem no banco de dados
                     $sql = $this->con->conectar()->prepare("UPDATE times SET imagem = :imagem WHERE id = :id");
-                    $sql->bindValue(":imagem", $imagem);  // Aqui estamos apenas atualizando o nome da imagem
+                    $sql->bindValue(":imagem", $tmpname);  // Atualiza com o novo nome da imagem
                     $sql->bindValue(":id", $id);
                     $sql->execute();
                 }
-
-                return TRUE;  // Retorna verdadeiro se a atualização foi bem-sucedida
-            } catch(PDOException $ex) {
-                echo 'ERRO: ' . $ex->getMessage();  // Exibe erro caso ocorra algum problema
             }
+
+            return true;  // Retorna true se a atualização for bem-sucedida
+        } else {
+            // Exibe erro se a consulta não for executada corretamente
+            echo "Erro na execução da query de atualização!";
+            return false; // Retorna false se ocorrer erro
         }
+
+    } catch (PDOException $ex) {
+        // Exibe erro caso ocorra algum problema durante a atualização
+        echo 'Erro ao atualizar: ' . $ex->getMessage();
+        return false;  // Retorna false em caso de erro
+    }
+}
     }
 
     // Função para deletar um time do banco

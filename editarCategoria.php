@@ -43,41 +43,47 @@ if (isset($_POST['nome']) && isset($_POST['descricao'])) {
 }
 ?>
 
-<!-- HTML que contém o formulário de adicionar ou editar categoria -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adicionar/Editar Categoria</title>
-    <!-- Link para o Bootstrap para estilizar o formulário -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Linkando o CSS -->
+    <link rel="stylesheet" href="css/editarCategoria.css">
 </head>
 <body>
 
-<!-- Título da página, que muda dependendo se é uma edição ou adição de categoria -->
-<h1><?php echo isset($id) && !empty($id) ? 'Editar Categoria' : 'Adicionar Categoria'; ?></h1>
+<!-- Cabeçalho -->
+<header>
+    <h1><?php echo isset($id) && !empty($id) ? 'Editar Categoria' : 'Adicionar Categoria'; ?></h1>
+</header>
 
-<!-- Formulário de adição ou edição de categoria -->
-<form method="POST">
-    <?php if (isset($id) && !empty($id)): ?>
-        <!-- Se for uma edição (tem ID), cria um campo oculto com o ID da categoria para ser enviado no formulário -->
-        <input type="hidden" name="id" value="<?php echo $info['id']; ?>">
-    <?php endif; ?>
-    
-    <!-- Campo para o nome da categoria -->
-    <label for="nome">Nome:</label><br>
-    <input type="text" name="nome" value="<?php echo isset($info['nome']) ? $info['nome'] : ''; ?>" required><br><br>
+<!-- Container do formulário -->
+<div class="form-container">
+    <!-- Formulário de adição ou edição de categoria -->
+    <form method="POST">
+        <?php if (isset($id) && !empty($id)): ?>
+            <!-- Campo oculto com o ID da categoria -->
+            <input type="hidden" name="id" value="<?php echo $info['id']; ?>">
+        <?php endif; ?>
 
-    <!-- Campo para a descrição da categoria -->
-    <label for="descricao">Descrição:</label><br>
-    <input type="text" name="descricao" value="<?php echo isset($info['descricao']) ? $info['descricao'] : ''; ?>" required><br><br>
+        <div class="input-group">
+            <label for="nome">Nome:</label>
+            <input type="text" name="nome" value="<?php echo isset($info['nome']) ? $info['nome'] : ''; ?>" required>
+        </div>
 
-    <!-- Botão para enviar o formulário, que muda o texto dependendo se é para adicionar ou salvar -->
-    <button type="submit"><?php echo isset($id) && !empty($id) ? 'Salvar Alterações' : 'Adicionar Categoria'; ?></button>
-</form>
+        <div class="input-group">
+            <label for="descricao">Descrição:</label>
+            <input type="text" name="descricao" value="<?php echo isset($info['descricao']) ? $info['descricao'] : ''; ?>" required>
+        </div>
 
-<!-- Link para o script do Bootstrap -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <div class="button-container">
+            <button class="submit-button" type="submit"><?php echo isset($id) && !empty($id) ? 'Salvar Alterações' : 'Adicionar Categoria'; ?></button>
+        </div>
+    </form>
+</div>
+
 </body>
 </html>
+

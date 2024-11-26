@@ -33,38 +33,51 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Jogo</title> <!-- Título da página -->
+    <!-- Linkando o CSS -->
+    <link rel="stylesheet" href="css/editarJogo.css">
 </head>
 <body>
     <!-- Cabeçalho da página de edição -->
     <h2>Editar Jogo</h2>
 
-    <!-- Formulário para editar as informações de um jogo -->
-    <form action="editarJogoSubmit.php" method="POST" enctype="multipart/form-data">
-    
-    <!-- Campo oculto para o ID do jogo, que será enviado com o formulário -->
-    <input type="hidden" name="id" value="<?= htmlspecialchars($jogoInfo['id'], ENT_QUOTES, 'UTF-8'); ?>">
+    <!-- Container do formulário -->
+    <div class="form-container">
+        <!-- Formulário para editar as informações de um jogo -->
+        <form action="editarJogoSubmit.php" method="POST" enctype="multipart/form-data">
+            <!-- Campo oculto para o ID do jogo, que será enviado com o formulário -->
+            <input type="hidden" name="id" value="<?= htmlspecialchars($jogoInfo['id'], ENT_QUOTES, 'UTF-8'); ?>">
 
-    <!-- Campo para o nome do jogo, preenchido com o nome atual do jogo -->
-    <label for="nome">Nome do Jogo:</label>
-    <input type="text" id="nome" name="nome" 
-           value="<?= htmlspecialchars($jogoInfo['nome'], ENT_QUOTES, 'UTF-8'); ?>" required><br>
+            <!-- Nome do jogo -->
+            <div class="input-group">
+                <label for="nome">Nome do Jogo:</label>
+                <input type="text" id="nome" name="nome" 
+                    value="<?= htmlspecialchars($jogoInfo['nome'], ENT_QUOTES, 'UTF-8'); ?>" required>
+            </div>
 
-    <!-- Campo para a descrição do jogo, preenchido com a descrição atual do jogo -->
-    <label for="descricao">Descrição:</label>
-    <textarea id="descricao" name="descricao" required><?= htmlspecialchars($jogoInfo['descricao'], ENT_QUOTES, 'UTF-8'); ?></textarea><br>
+            <!-- Descrição do jogo -->
+            <div class="input-group">
+                <label for="descricao">Descrição:</label>
+                <textarea id="descricao" name="descricao" required><?= htmlspecialchars($jogoInfo['descricao'], ENT_QUOTES, 'UTF-8'); ?></textarea>
+            </div>
 
-    <!-- Campo para a data de lançamento do jogo, preenchido com a data atual -->
-    <label for="data_lancamento">Data de Lançamento:</label>
-    <input type="date" id="data_lancamento" name="data_lancamento" 
-           value="<?= htmlspecialchars($jogoInfo['data_lancamento'], ENT_QUOTES, 'UTF-8'); ?>" required><br>
+            <!-- Data de lançamento -->
+            <div class="input-group">
+                <label for="data_lancamento">Data de Lançamento:</label>
+                <input type="date" id="data_lancamento" name="data_lancamento" 
+                    value="<?= htmlspecialchars($jogoInfo['data_lancamento'], ENT_QUOTES, 'UTF-8'); ?>" required>
+            </div>
 
-    <!-- Campo para o upload de imagem do jogo (opcional) -->
-    <label for="imagem">Imagem:</label>
-    <input type="file" id="imagem" name="imagem" accept="image/*"><br>
+            <!-- Imagem do jogo -->
+            <div class="input-group">
+                <label for="imagem">Imagem:</label>
+                <input type="file" id="imagem" name="imagem" accept="image/*">
+            </div>
 
-    <!-- Botão para enviar o formulário -->
-    <button type="submit">Salvar Alterações</button>
-    </form>
-
+            <!-- Botão de enviar -->
+            <div class="button-container">
+                <button class="submit-button" type="submit">Salvar Alterações</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

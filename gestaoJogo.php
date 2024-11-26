@@ -23,6 +23,10 @@ $jogo = new Jogos(); // Cria uma instância da classe 'Jogos' para manipulação
     <header>
         <h1>Gestão de Jogos</h1> <!-- Título principal da página -->
     </header>
+
+    <div class="button-container">
+        <a href="index.php" class="button">VOLTAR AO INICIO</a> <!-- Link que leva à página inicial -->
+    </div>
     
     <div class="button-container">
         <a href="adicionarJogo.php" class="button">ADICIONAR</a> <!-- Link para a página de adição de jogos -->

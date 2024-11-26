@@ -25,6 +25,11 @@ $usuario = new Usuarios(); // Cria uma instância da classe 'Usuarios' para mani
         <h1>Gestão de Usuários</h1> <!-- Título principal da página -->
     </header>
     
+    <!-- Botão para voltar ao index -->
+    <div class="button-container">
+        <a href="index.php" class="button">VOLTAR AO INICIO</a> <!-- Link que leva à página inicial -->
+    </div>
+
     <!-- Botão para adicionar um novo usuário -->
     <div class="button-container">
         <a href="adicionarUsuario.php" class="button">ADICIONAR</a> <!-- Link que leva à página para adicionar um novo usuário -->

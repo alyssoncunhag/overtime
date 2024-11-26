@@ -24,6 +24,11 @@ $torneio = new Torneios(); // Cria uma instância da classe 'Torneios' para mani
         <h1>Gestão de Torneios</h1> <!-- Título principal da página -->
     </header>
     
+    <!-- Botão para voltar à página inicial -->
+    <div class="button-container">
+        <a href="index.php" class="button">VOLTAR AO INICIO</a> <!-- Link que leva à página inicial -->
+    </div>
+
     <!-- Botão para adicionar torneio -->
     <div class="button-container">
         <a href="adicionarTorneio.php" class="button">ADICIONAR</a> <!-- Link para adicionar um novo torneio -->

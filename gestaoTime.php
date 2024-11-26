@@ -23,6 +23,10 @@ $time = new Times(); // Cria uma instância da classe 'Times' para manipulação
     <header>
         <h1>Gestão de Times</h1> <!-- Título principal da página -->
     </header>
+
+    <div class="button-container">
+        <a href="index.php" class="button">VOLTAR AO INICIO</a> <!-- Link que leva à página inicial -->
+    </div>
     
     <div class="button-container">
         <a href="adicionarTime.php" class="button">ADICIONAR</a> <!-- Link para adicionar um novo time -->
@@ -43,11 +47,16 @@ $time = new Times(); // Cria uma instância da classe 'Times' para manipulação
                 </tr>
             </thead>
             <tbody>
-                <?php
-                // Chama o método 'listar' da classe Times para obter todos os times do banco de dados
+            <?php
+                // Chama o método 'listar' da classe times para obter todos os times cadastrados no banco de dados
                 $lista = $time->listar();
                 // Itera sobre cada time da lista e exibe os dados na tabela
                 foreach($lista as $item):
+                    $imagem_url = ''; // Valor padrão para a imagem
+                    // Verifica se há uma imagem associada ao time
+                    if (isset($item['imagem']) && !empty($item['imagem'])) {
+                        $imagem_url = 'img/times/' . $item['imagem'];  // Caminho da imagem
+                    }
                 ?>
                     <tr>
                         <!-- Exibe os dados de cada time nas células da tabela -->
@@ -55,7 +64,15 @@ $time = new Times(); // Cria uma instância da classe 'Times' para manipulação
                         <td><?php echo $item['nome']; ?></td> <!-- Exibe o Nome do time -->
                         <td><?php echo $item['pais']; ?></td> <!-- Exibe o País do time -->
                         <td><?php echo $item['descricao']; ?></td> <!-- Exibe a Descrição do time -->
-                        <td><img src="<?php echo $item['imagem']; ?>" alt="Imagem do time" class="team-image"></td> <!-- Exibe a Imagem do time -->
+                        <td>
+                            <?php if ($imagem_url): ?>
+                                <!-- Exibe a Imagem do time se houver uma URL válida -->
+                                <img src="<?php echo $imagem_url; ?>" alt="Imagem do Time" width="100">
+                            <?php else: ?>
+                                <!-- Caso não haja imagem associada, exibe uma mensagem de "Sem imagem" -->
+                                <span>Sem imagem</span>
+                            <?php endif; ?>
+                        </td>
                         <td>
                             <!-- Link para editar o time, passando o ID como parâmetro na URL -->
                             <a href="editarTime.php?id=<?php echo $item['id']; ?>" class="action-button">Editar</a>

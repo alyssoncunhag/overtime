@@ -47,53 +47,62 @@ if (!empty($_POST['id'])) {
 ?>
 
 <!-- HTML para o formulário de edição de notícia -->
-<h1>EDITAR NOTÍCIA</h1>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Notícia</title>
+    <!-- Ligação com o arquivo CSS -->
+    <link rel="stylesheet" href="css/editarNoticia.css">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <h1>EDITAR NOTÍCIA</h1>
+    </header>
 
-<form action="editarNoticiaSubmit.php" method="POST" enctype="multipart/form-data">
-    <!-- Campo oculto para o ID da notícia, para garantir que o servidor saiba qual notícia editar -->
-    <input type="hidden" name="id" value="<?php echo $info['id']; ?>">
-    
-    <!-- Campo para o título da notícia -->
-    Título: <br>
-    <input type="text" name="titulo" value="<?php echo $info['titulo'] ;?>"/><br><br>
+    <!-- Container do formulário -->
+    <div class="form-container">
+        <form action="editarNoticiaSubmit.php" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="<?php echo $info['id']; ?>">
 
-    <!-- Campo para o conteúdo da notícia -->
-    Conteúdo: <br>
-    <textarea name="conteudo"><?php echo $info['conteudo'] ;?></textarea><br><br>
+            <div class="input-group">
+                <label for="titulo">Título:</label>
+                <input type="text" name="titulo" value="<?php echo $info['titulo']; ?>"/>
+            </div>
 
-    <!-- Campo para o ID da categoria da notícia -->
-    Categoria: <br>
-    <input type="text" name="id_categorias" value="<?php echo $info['id_categorias'] ;?>"/><br><br>
+            <div class="input-group">
+                <label for="conteudo">Conteúdo:</label>
+                <textarea name="conteudo"><?php echo $info['conteudo']; ?></textarea>
+            </div>
 
-    <!-- Campo para o ID do autor da notícia -->
-    Autor: <br>
-    <input type="text" name="id_autor" value="<?php echo $info['id_autor'] ;?>"/><br><br>
+            <div class="input-group">
+                <label for="id_categorias">Categoria:</label>
+                <input type="text" name="id_categorias" value="<?php echo $info['id_categorias']; ?>"/>
+            </div>
 
-    <!-- Campo para a data de publicação da notícia -->
-    Data de Publicação: <br>
-    <input type="date" name="data_publicacao" value="<?php echo $info['data_publicacao'] ;?>"/><br><br>
+            <div class="input-group">
+                <label for="id_autor">Autor:</label>
+                <input type="text" name="id_autor" value="<?php echo $info['id_autor']; ?>"/>
+            </div>
 
-    <!-- Campo para upload de imagens (permitindo múltiplas imagens) -->
-    Imagem: <br>
-    <input type="file" name="imagem[]" multiple /><br>
- 
-    <!-- Se houver imagens associadas à notícia, exibe as imagens e permite excluir -->
-    <div class="cabecalho">Imagem da Notícia</div>
-    <div class="corpo">
-    <?php if (!empty($info['imagem']) && is_array($info['imagem'])): ?>
-        <!-- Se houver imagens associadas, exibe-as -->
-        <?php foreach ($info['imagem'] as $fotos): ?>
-            <div class="foto_item">
-                <img src="img/noticias/<?php echo $fotos['url']; ?>"/>
-                <a href="excluir_foto.php?id=<?php echo $fotos['id'];?>">Excluir Imagem</a>
-            </div> 
-        <?php endforeach; ?>
-    <?php else: ?>
-        <!-- Se não houver imagens, exibe uma mensagem -->
-        <p>Não há imagens para esta notícia.</p>
-    <?php endif; ?>
+            <div class="input-group">
+                <label for="data_publicacao">Data de Publicação:</label>
+                <input type="date" name="data_publicacao" value="<?php echo $info['data_publicacao']; ?>"/>
+            </div>
+
+            <div class="input-group">
+                <label for="imagem">Imagem:</label>
+                <input type="file" name="imagem[]" multiple />
+            </div>
+
+            <div class="button-container">
+                <input type="submit" name="btAlterar" value="ALTERAR" class="submit-button"/>
+            </div>
+        </form>
     </div>
+</body>
+</html>
 
-    <!-- Botão para submeter o formulário de edição -->
-    <input type="submit" name="btAlterar" value="ALTERAR"/>
-</form>
+

@@ -28,33 +28,49 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <title>Editar Time</title> <!-- Título da página -->
+    <link rel="stylesheet" href="css/editarTime.css"> <!-- Ligação com o arquivo CSS -->
 </head>
 <body>
-    <h1>Editar Time</h1> <!-- Cabeçalho da página -->
+    <header>
+        <h1>EDITAR TIME</h1>
+    </header>
 
-    <!-- Formulário para edição dos dados do time -->
-    <form action="editarTimeSubmit.php" method="POST" enctype="multipart/form-data">
-        <!-- Campo oculto para passar o ID do time no formulário -->
-        <input type="hidden" name="id" value="<?php echo $time['id']; ?>">
+    <!-- Container do formulário -->
+    <div class="form-container">
+        <!-- Formulário para edição dos dados do time -->
+        <form action="editarTimeSubmit.php" method="POST" enctype="multipart/form-data">
+            <!-- Campo oculto para passar o ID do time no formulário -->
+            <input type="hidden" name="id" value="<?php echo $time['id']; ?>">
 
-        <!-- Campo para edição do nome do time -->
-        <label for="nome">Nome:</label>
-        <input type="text" name="nome" id="nome" value="<?php echo $time['nome']; ?>" required><br>
+            <!-- Campo para edição do nome do time -->
+            <div class="input-group">
+                <label for="nome">Nome:</label>
+                <input type="text" name="nome" id="nome" value="<?php echo $time['nome']; ?>" required>
+            </div>
 
-        <!-- Campo para edição do país do time -->
-        <label for="pais">País:</label>
-        <input type="text" name="pais" id="pais" value="<?php echo $time['pais']; ?>" required><br>
+            <!-- Campo para edição do país do time -->
+            <div class="input-group">
+                <label for="pais">País:</label>
+                <input type="text" name="pais" id="pais" value="<?php echo $time['pais']; ?>" required>
+            </div>
 
-        <!-- Campo para edição da descrição do time -->
-        <label for="descricao">Descrição:</label>
-        <textarea name="descricao" id="descricao" required><?php echo $time['descricao']; ?></textarea><br>
+            <!-- Campo para edição da descrição do time -->
+            <div class="input-group">
+                <label for="descricao">Descrição:</label>
+                <textarea name="descricao" id="descricao" required><?php echo $time['descricao']; ?></textarea>
+            </div>
 
-        <!-- Campo para upload de imagem do time (aceita múltiplas imagens) -->
-        <label for="imagem">Imagem:</label>
-        <input type="file" name="imagem[]" id="imagem" multiple><br>
+            <!-- Campo para upload de imagem do time (aceita múltiplas imagens) -->
+            <div class="input-group">
+                <label for="imagem">Imagem:</label>
+                <input type="file" id="imagem" name="imagem" accept="image/*" />
+            </div>
 
-        <!-- Botão para submeter o formulário -->
-        <button type="submit">Atualizar</button>
-    </form>
+            <!-- Botão para submeter o formulário -->
+            <div class="button-container">
+                <button type="submit" class="submit-button">Atualizar</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

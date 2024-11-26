@@ -25,33 +25,47 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Usuário</title>
+    <!-- Vinculando o arquivo CSS -->
+    <link rel="stylesheet" href="css/editarUsuario.css">
 </head>
 <body>
-    <h1>Editar Usuário</h1>
-    <form action="editarUsuarioSubmit.php" method="POST">
-        <!-- Campo oculto para o ID do usuário, necessário para atualizar o registro correto -->
-        <input type="hidden" name="id" value="<?php echo $usuario['id']; ?>" />
+    <header>
+        <h1>Editar Usuário</h1>
+    </header>
+    <div class="form-container">
+        <form action="editarUsuarioSubmit.php" method="POST">
+            <!-- Campo oculto para o ID do usuário, necessário para atualizar o registro correto -->
+            <input type="hidden" name="id" value="<?php echo $usuario['id']; ?>" />
 
-        <!-- Campo de entrada para o nome do usuário -->
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" value="<?php echo $usuario['nome']; ?>" required><br>
+            <!-- Grupo de input para o nome do usuário -->
+            <div class="input-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" value="<?php echo $usuario['nome']; ?>" required>
+            </div>
 
-        <!-- Campo de entrada para o email do usuário -->
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="<?php echo $usuario['email']; ?>" required><br>
+            <!-- Grupo de input para o email do usuário -->
+            <div class="input-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="<?php echo $usuario['email']; ?>" required>
+            </div>
 
-        <!-- Campo de entrada para a senha do usuário -->
-        <!-- A senha não será preenchida inicialmente, já que é sensível -->
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha"><br>
+            <!-- Grupo de input para a senha do usuário -->
+            <div class="input-group">
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" name="senha">
+            </div>
 
-        <!-- Campo de entrada para permissões do usuário -->
-        <!-- Usa explode e implode para transformar a string de permissões em um array e vice-versa -->
-        <label for="permissoes">Permissões:</label>
-        <input type="text" id="permissoes" name="permissoes" value="<?php echo implode(', ', explode(',', $usuario['permissoes'])); ?>"><br>
+            <!-- Grupo de input para permissões do usuário -->
+            <div class="input-group">
+                <label for="permissoes">Permissões:</label>
+                <input type="text" id="permissoes" name="permissoes" value="<?php echo implode(', ', explode(',', $usuario['permissoes'])); ?>">
+            </div>
 
-        <!-- Botão para enviar o formulário -->
-        <input type="submit" value="Salvar Alterações">
-    </form>
+            <!-- Botão para enviar o formulário -->
+            <div class="button-container">
+                <input type="submit" value="Salvar Alterações" class="submit-button">
+            </div>
+        </form>
+    </div>
 </body>
 </html>

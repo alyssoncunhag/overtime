@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Se a atualização for bem-sucedida, exibe uma mensagem de sucesso
         echo "Torneio atualizado com sucesso!";
         // Redireciona o usuário para a página de listagem de torneios
-        header("Location: index.php");
+        header("Location: gestaoTorneio.php");
         exit; // Interrompe o script após o redirecionamento
     } else {
         // Caso contrário, exibe uma mensagem de erro

@@ -23,6 +23,10 @@ $noticia = new Noticias(); // Cria uma instância da classe 'Noticias' para mani
     <header>
         <h1>Gestão de Notícias</h1> <!-- Título principal da página -->
     </header>
+
+    <div class="button-container">
+        <a href="index.php" class="button">VOLTAR AO INICIO</a> <!-- Link que leva à página inicial -->
+    </div>
     
     <div class="button-container">
         <a href="adicionarNoticia.php" class="button">ADICIONAR</a> <!-- Link para adicionar uma nova notícia -->

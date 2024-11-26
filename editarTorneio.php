@@ -21,35 +21,68 @@ if(isset($_GET['id'])){
 }
 ?>
 
-<!-- Formulário para editar os dados do torneio -->
-<form action="editarTorneioSubmit.php" method="POST" enctype="multipart/form-data">
-    <!-- Campo oculto para enviar o ID do torneio com o formulário -->
-    <input type="hidden" name="id" value="<?= $dadosTorneio['id']; ?>">
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Torneio</title> <!-- Título da página -->
+    <!-- Vinculando o arquivo CSS -->
+    <link rel="stylesheet" href="css/editarTorneio.css">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <h1>Editar Torneio</h1>
+    </header>
 
-    <!-- Campo para editar o nome do torneio -->
-    <label for="nome">Nome do Torneio</label>
-    <input type="text" id="nome" name="nome" value="<?= $dadosTorneio['nome']; ?>" required>
+    <!-- Formulário para editar os dados do torneio -->
+    <div class="form-container">
+        <form action="editarTorneioSubmit.php" method="POST" enctype="multipart/form-data">
+            <!-- Campo oculto para enviar o ID do torneio com o formulário -->
+            <input type="hidden" name="id" value="<?= $dadosTorneio['id']; ?>">
 
-    <!-- Campo para editar o ID do jogo associado ao torneio -->
-    <label for="id_jogos">ID Jogo</label>
-    <input type="text" name="id_jogos" value="<?= $dadosTorneio['id_jogos']; ?>" required>
+            <!-- Campo para editar o nome do torneio -->
+            <div class="input-group">
+                <label for="nome">Nome do Torneio</label>
+                <input type="text" id="nome" name="nome" value="<?= $dadosTorneio['nome']; ?>" required>
+            </div>
 
-    <!-- Campo para editar a descrição do torneio -->
-    <label for="descricao">Descrição</label>
-    <textarea id="descricao" name="descricao" required><?= $dadosTorneio['descricao']; ?></textarea>
+            <!-- Campo para editar o ID do jogo associado ao torneio -->
+            <div class="input-group">
+                <label for="id_jogos">ID Jogo</label>
+                <input type="text" name="id_jogos" value="<?= $dadosTorneio['id_jogos']; ?>" required>
+            </div>
 
-    <!-- Campo para editar a data de início do torneio -->
-    <label for="data_inicio">Data de Início</label>
-    <input type="date" id="data_inicio" name="data_inicio" value="<?= $dadosTorneio['data_inicio']; ?>" required>
+            <!-- Campo para editar a descrição do torneio -->
+            <div class="input-group">
+                <label for="descricao">Descrição</label>
+                <textarea id="descricao" name="descricao" required><?= $dadosTorneio['descricao']; ?></textarea>
+            </div>
 
-    <!-- Campo para editar a data de fim do torneio -->
-    <label for="data_fim">Data de Fim</label>
-    <input type="date" id="data_fim" name="data_fim" value="<?= $dadosTorneio['data_fim']; ?>" required>
+            <!-- Campo para editar a data de início do torneio -->
+            <div class="input-group">
+                <label for="data_inicio">Data de Início</label>
+                <input type="date" id="data_inicio" name="data_inicio" value="<?= $dadosTorneio['data_inicio']; ?>" required>
+            </div>
 
-    <!-- Campo para enviar uma nova imagem (opcional) -->
-    <label for="imagem">Imagem (opcional)</label>
-    <input type="file" id="imagem" name="imagem[]">
+            <!-- Campo para editar a data de fim do torneio -->
+            <div class="input-group">
+                <label for="data_fim">Data de Fim</label>
+                <input type="date" id="data_fim" name="data_fim" value="<?= $dadosTorneio['data_fim']; ?>" required>
+            </div>
 
-    <!-- Botão para submeter o formulário -->
-    <button type="submit">Salvar alterações</button>
-</form>
+            <!-- Campo para enviar uma nova imagem (opcional) -->
+            <div class="input-group">
+                <label for="imagem">Imagem (opcional)</label>
+                <input type="file" id="imagem" name="imagem" accept="image/*" />
+            </div>
+
+            <!-- Botão para submeter o formulário -->
+            <div class="button-container">
+                <button type="submit" class="submit-button">Salvar alterações</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
