@@ -12,15 +12,15 @@
     </header>
 
     <div class="form-container">
-        <form method="POST" action="adicionarTorneioSubmit.php">
+        <form method="POST" action="adicionarTorneioSubmit.php" enctype="multipart/form-data">
             <div class="input-group">
                 <label for="nome">Nome do Torneio:</label>
                 <input type="text" id="nome" name="nome" required />
             </div>
             
             <div class="input-group">
-                <label for="id_jogo">ID Jogo:</label>
-                <input type="text" id="id_jogo" name="id_jogo" required />
+                <label for="id_jogos">ID Jogo:</label>
+                <input type="text" id="id_jogos" name="id_jogos" required />
             </div>
             
             <div class="input-group">
@@ -36,6 +36,12 @@
             <div class="input-group">
                 <label for="data_fim">Data de Fim:</label>
                 <input type="date" id="data_fim" name="data_fim" required />
+            </div>
+
+            <!-- Campo para upload de imagem -->
+            <div class="input-group">
+                <label for="imagem">Imagem do Torneio:</label>
+                <input type="file" id="imagem" name="imagem" accept="image/*" />
             </div>
 
             <div class="button-container">

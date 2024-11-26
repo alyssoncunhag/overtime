@@ -28,27 +28,31 @@ class Times{
 }
 
 public function adicionar($nome, $pais, $descricao, $imagem){
+    // Verificando se o time já existe
     $existeTime = $this->existeTime($nome);
-    if(count( $existeTime) == 0){
-        try{
+    if (count($existeTime) == 0) {
+        try {
             $this->nome = $nome;
             $this->pais = $pais;
             $this->descricao = $descricao;
-            $this->imagem = $imagem;
-            $sql = $this->con->conectar()->prepare("INSERT INTO times(nome, pais, descricao, imagem) VALUES ( :nome, :pais, :descricao, :imagem)");
+            $this->imagem = $imagem;  // Armazenando o nome do arquivo de imagem
+
+            // Inserindo o time no banco de dados
+            $sql = $this->con->conectar()->prepare("INSERT INTO times(nome, pais, descricao, imagem) VALUES (:nome, :pais, :descricao, :imagem)");
             $sql->bindParam(":nome", $this->nome, PDO::PARAM_STR);
             $sql->bindParam(":pais", $this->pais, PDO::PARAM_STR);
             $sql->bindParam(":descricao", $this->descricao, PDO::PARAM_STR);
-            $sql->bindParam(":imagem", $this->imagem, PDO::PARAM_STR);
+            $sql->bindParam(":imagem", $this->imagem, PDO::PARAM_STR);  // Salvando o nome da imagem
             $sql->execute();
+
             return TRUE;
-        }catch(PDOException $ex){
+        } catch(PDOException $ex) {
             return "ERRO: ".$ex->getMessage();
         }
-    }else{
-        return FALSE;
     }
+    return FALSE;
 }
+
 
 public function listar(){
     try{
@@ -109,12 +113,12 @@ public function editar($nome, $pais, $descricao, $imagem, $id){
 
                         $img = imagecreatetruecolor($width, $height);
                         if($tipo === 'image/jpeg'){
-                            $origi = imagecreatefromjpeg('img/noticias/'.$tmpname);
+                            $origi = imagecreatefromjpeg('img/times/'.$tmpname);
                         }elseif($tipo === 'image/png'){
                             $origi = imagecreatefromgif(''.$tmpname);
                         }
                         imagecopyresampled($img, $origi, $width, $height, $width_orig, $height_orig);
-                        imagejpeg($img, 'img/time/'.$tmpname, 80);
+                        imagejpeg($img, 'img/times/'.$tmpname, 80);
                         $sql = $this->con->conectar()->prepare("INSERT INTO imagem_time SET id_time = :id_time, url = :url");
                         $sql->bindValue(":id_time", $id);
                         $sql->bindValue(":url", $tmpname);

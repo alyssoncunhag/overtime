@@ -29,8 +29,8 @@
             </div>
             
             <div class="input-group">
-                <label for="id_categoria">ID Categoria:</label>
-                <input type="hidden" id="id_categoria" name="id_categoria" value="1" />
+                <label for="id_categorias">ID Categoria:</label>
+                <input type="hidden" id="id_categorias" name="id_categorias" value="1" />
             </div>
 
             <div class="input-group">

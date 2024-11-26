@@ -41,6 +41,7 @@ $torneio = new Torneios();
                     <th>Descrição</th>
                     <th>Data Início</th>
                     <th>Data Fim</th>
+                    <th>Imagem</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -48,14 +49,26 @@ $torneio = new Torneios();
                 <?php
                 $lista = $torneio->listar();
                 foreach($lista as $item):
+                    $imagem_url = ''; // Valor padrão para a imagem
+                    // Verifica se há uma imagem associada ao torneio
+                    if (isset($item['imagem']) && !empty($item['imagem'])) {
+                        $imagem_url = 'img/torneios/' . $item['imagem'];  // Caminho da imagem
+                    }
                 ?>
                     <tr>
                         <td><?php echo $item['id']; ?></td>
                         <td><?php echo $item['nome']; ?></td>
-                        <td><?php echo $item['id_jogo']; ?></td>
+                        <td><?php echo $item['id_jogos']; ?></td>
                         <td><?php echo $item['descricao']; ?></td>
                         <td><?php echo $item['data_inicio']; ?></td>
                         <td><?php echo $item['data_fim']; ?></td>
+                        <td>
+                            <?php if ($imagem_url): ?>
+                                <img src="<?php echo $imagem_url; ?>" alt="Imagem do Torneio" width="100">
+                            <?php else: ?>
+                                <span>Sem imagem</span>
+                            <?php endif; ?>
+                        </td>
                         <td>
                             <a href="editarTorneio.php?id=<?php echo $item['id']; ?>" class="action-button">Editar</a>
                             <a href="excluirTorneio.php?id=<?php echo $item['id']; ?>" class="action-button">Excluir</a>

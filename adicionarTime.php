@@ -12,7 +12,7 @@
     </header>
 
     <div class="form-container">
-        <form method="POST" action="adicionarTimeSubmit.php">
+        <form method="POST" action="adicionarTimeSubmit.php" enctype="multipart/form-data"> <!-- Adicionado enctype -->
             <div class="input-group">
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome" required />
@@ -29,8 +29,8 @@
             </div>
             
             <div class="input-group">
-                <label for="imagem">imagem</label>
-                <input type="file" id="imagem" name="imagem" required />
+                <label for="imagem">Imagem:</label>
+                <input type="file" id="imagem" name="imagem" accept="image/jpeg, image/png" required />
             </div>
 
             <div class="button-container">

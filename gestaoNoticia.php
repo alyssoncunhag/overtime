@@ -53,7 +53,7 @@ $noticia = new Noticias();
                         <td><?php echo $item['titulo']; ?></td>
                         <td><?php echo $item['conteudo']; ?></td>
                         <td><img src="<?php echo $item['imagem']; ?>" alt="Imagem da notícia" class="news-image"></td>
-                        <td><?php echo $item['id_categoria']; ?></td>
+                        <td><?php echo $item['id_categorias']; ?></td>
                         <td><?php echo $item['id_autor']; ?></td>
                         <td><?php echo $item['data_publicacao']; ?></td>
                         <td>
