@@ -12,7 +12,7 @@
     </header>
 
     <div class="form-container">
-        <form method="POST" action="adicionarNoticiaSubmit.php">
+    <form method="POST" action="adicionarNoticiaSubmit.php" enctype="multipart/form-data">
             <div class="input-group">
                 <label for="titulo">Título:</label>
                 <input type="text" id="titulo" name="titulo" required />
@@ -25,17 +25,17 @@
             
             <div class="input-group">
                 <label for="imagem">Imagem:</label>
-                <input type="text" id="imagem" name="imagem" required />
+                <input type="file" id="imagem" name="imagem" required />
             </div>
             
             <div class="input-group">
                 <label for="id_categorias">ID Categoria:</label>
-                <input type="hidden" id="id_categorias" name="id_categorias" value="1" />
+                <input type="text" id="id_categorias" name="id_categorias" required />
             </div>
 
             <div class="input-group">
                 <label for="id_autor">ID Autor:</label>
-                <input type="hidden" id="id_autor" name="id_autor" value="1" />
+                <input type="text" id="id_autor" name="id_autor" required />
             </div>
 
             <div class="input-group">

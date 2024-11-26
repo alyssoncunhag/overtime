@@ -70,22 +70,33 @@ class Categorias {
         }
     }
 
-    public function editar($nome, $descricao, $id) {
-        if ($this->existeCategoria($nome)) {
-            return "Categoria já cadastrada!";
-        } else {
-            try {
-                $sql = $this->con->conectar()->prepare("UPDATE categorias SET nome = :nome, descricao = :descricao WHERE id = :id");
-                $sql->bindValue(":nome", $nome);
-                $sql->bindValue(":descricao", $descricao);
-                $sql->bindValue(":id", $id);
-                $sql->execute();
-                return TRUE;
-            } catch(PDOException $ex) {
-                echo 'ERRO: ' . $ex->getMessage();
-            }
+    public function editar($id, $nome, $descricao) {
+        try {
+            // Atualiza os dados da categoria no banco
+            $sql = $this->con->conectar()->prepare("UPDATE categorias SET nome = :nome, descricao = :descricao WHERE id = :id");
+            $sql->bindValue(":nome", $nome);
+            $sql->bindValue(":descricao", $descricao);
+            $sql->bindValue(":id", $id);
+            $sql->execute();
+    
+            return TRUE; // Sucesso
+        } catch(PDOException $ex) {
+            return 'ERRO: ' . $ex->getMessage(); // Retorna o erro caso aconteça
         }
     }
+    
+
+    public function getCategoria($id) {
+        $array = array();
+        $sql = $this->con->conectar()->prepare("SELECT * FROM categorias WHERE id = :id");
+        $sql->bindValue(":id", $id);
+        $sql->execute();
+        if ($sql->rowCount() > 0) {
+            $array = $sql->fetch();
+        }
+        return $array;
+    }
+    
 
     public function deletar($id) {
         try {
