@@ -1,15 +1,14 @@
 <?php
-include 'classes/noticias.class.php';
-$noticia = new Noticias();
+include 'classes/times.class.php';  // Incluindo o arquivo correto
+$time = new Times();  // Instanciando a classe corretamente
 
-if(!empty($_POST['id'])){
-    $titulo = $_POST['nome'];
-    $conteudo = $_POST['conteudo'];
+if(!empty($_POST['nome'])){
+    $nome = $_POST['nome'];
+    $pais = $_POST['pais'];
+    $descricao = $_POST['descricao'];
     $imagem = $_POST['imagem'];
-    $id_categoria = $_POST['id_categoria'];
-    $data_publicacao = $_POST['data_publicacao'];
-    $noticia->adicionar($titulo, $conteudo, $imagem, $id_categoria, $data_publicacao);
+    $time->adicionar($nome, $pais, $descricao, $imagem);  // Chamando o método adicionar
     header('Location: index.php');
 }else{
-    echo '<script type="text/javascript">alert("Noticia já cadastrado!");<script>';
+    echo '<script type="text/javascript">alert("Time já cadastrado!");</script>';
 }
