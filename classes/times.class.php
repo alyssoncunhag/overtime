@@ -69,7 +69,6 @@ class Times {
         }
     }
 
-    // Função para buscar um time pelo ID
     public function buscar($id) {
         try {
             // Prepara a query para buscar um time específico pelo seu ID
@@ -87,7 +86,6 @@ class Times {
         }
     }
 
-    // Função para editar os dados de um time
     public function editar($nome, $pais, $descricao, $imagem, $id) {
         // Verifica se o nome do time já está sendo utilizado por outro time
         $timeExistente = $this->existeTime($nome);
@@ -137,7 +135,6 @@ class Times {
 }
     }
 
-    // Função para deletar um time do banco
     public function deletar($id) {
         // Prepara e executa a query para deletar o time pelo ID
         $sql = $this->con->conectar()->prepare("DELETE FROM times WHERE id = :id");

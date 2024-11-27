@@ -1,5 +1,5 @@
 <?php
-require_once 'conexao.class.php';  // Inclui a classe de conexão com o banco de dados
+require_once 'conexao.class.php'; 
 
 class Usuarios {
     private $id;
@@ -9,13 +9,11 @@ class Usuarios {
     private $permissoes;
     private $con;
 
-    // Construtor da classe: Cria a conexão com o banco e inicializa as permissões como um array vazio
     public function __construct() {
         $this->con = new Conexao();
         $this->permissoes = []; // Garantir que permissoes seja sempre um array
     }
 
-    // Método para verificar se um email já existe no banco de dados
     public function existeEmail($email){
         $sql = $this->con->conectar()->prepare("SELECT id FROM usuarios WHERE email = :email");
         $sql->bindParam(':email', $email, PDO::PARAM_STR);
@@ -27,12 +25,10 @@ class Usuarios {
         return false;  // Retorna false caso o email não exista
     }
 
-    // Método para verificar se o usuário tem uma permissão específica
     public function temPermissoes($permissao) {
         return in_array($permissao, $this->permissoes); // Verifica se a permissão existe no array de permissões
     }
 
-    // Método para adicionar um novo usuário ao banco de dados
     public function adicionar($nome, $email, $senha, $permissoes){
         // Verifica se permissões é uma string e, se for, converte para array
         if (is_string($permissoes)) {
@@ -137,7 +133,6 @@ class Usuarios {
         return $sql->execute();  // Executa a consulta para redefinir a senha
     }
 
-    // Método para listar todos os usuários
     public function listar() {
         try{
             $sql = $this->con->conectar()->prepare("SELECT * FROM usuarios");
@@ -148,7 +143,6 @@ class Usuarios {
         }
     }
 
-    // Método para editar os dados de um usuário
     public function editar($nome, $email, $senha, $permissoes, $id){
         // Verifica se o e-mail já existe, mas não no mesmo usuário
         $emailExistente = $this->existeEmail($email);
@@ -180,14 +174,12 @@ class Usuarios {
         }
     }
 
-    // Método para excluir um usuário
     public function deletar($id){
         $sql = $this->con->conectar()->prepare("DELETE FROM usuarios WHERE id = :id");
         $sql->bindValue(':id', $id);
         $sql->execute();  // Executa a consulta para excluir o usuário
     }
 
-    // Método para obter os dados de um usuário específico
     public function getUsuario($id){
         $array = array();
         $sql = $this->con->conectar()->prepare("SELECT * FROM usuarios WHERE id = :id");
@@ -199,7 +191,6 @@ class Usuarios {
         return $array;
     }
 
-    // Método para setar os dados do usuário na classe
     public function setUsuario($id) {
         $usuario = $this->getUsuario($id);  // Pega os dados do usuário no banco
         if ($usuario) {

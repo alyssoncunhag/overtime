@@ -1,8 +1,6 @@
 <?php
-// Inclui o arquivo da classe 'Categorias', que contém os métodos para manipular as categorias no banco de dados
 include 'classes/categorias.class.php'; 
 
-// Cria um objeto da classe 'Categorias' para interagir com o banco de dados
 $categoria = new Categorias(); 
 
 // Verifica se os campos 'nome' e 'descricao' foram preenchidos no formulário

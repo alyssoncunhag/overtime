@@ -1,8 +1,6 @@
 <?php
-// Inclui o arquivo da classe 'Categorias', onde os métodos relacionados ao gerenciamento de categorias estão implementados
 include 'classes/categorias.class.php';
 
-// Instancia um objeto da classe 'Categorias' para interagir com as categorias no banco de dados
 $categoria = new Categorias();
 
 // Verifica se a URL contém um parâmetro 'id' e se ele não está vazio

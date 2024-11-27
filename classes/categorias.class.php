@@ -1,20 +1,14 @@
 <?php
-// Importa a classe de conexão com o banco
 require 'conexao.class.php';
-
-// Definição da classe Categorias, responsável por gerenciar as categorias no banco
 class Categorias {
-    private $id; // Armazena o id da categoria
-    private $nome; // Armazena o nome da categoria
-    private $descricao; // Armazena a descrição da categoria
-    private $con; // A variável que vai armazenar a conexão com o banco
-
-    // Construtor da classe que cria a conexão com o banco
+    private $id; 
+    private $nome; 
+    private $descricao; 
+    private $con; 
     public function __construct() {
-        $this->con = new Conexao(); // Aqui ele instância a classe Conexao
+        $this->con = new Conexao(); 
     }
 
-    // Função que verifica se uma categoria já existe no banco
     private function existeCategoria($nome) {
         // Remove os espaços extras e coloca tudo em minúsculo pra garantir que a comparação seja exata
         $nome = trim(strtolower($nome));
@@ -27,7 +21,6 @@ class Categorias {
         return $sql->rowCount() > 0; // Se o número de resultados for maior que 0, retorna TRUE (categoria já existe)
     }
 
-    // Função que adiciona uma nova categoria
     public function adicionar($nome, $descricao) {
         // Primeiro, verifica se a categoria já existe
         if ($this->existeCategoria($nome)) {
@@ -50,7 +43,6 @@ class Categorias {
         }
     }
 
-    // Função que lista todas as categorias no banco
     public function listar() {
         try {
             // Prepara a consulta SQL para pegar todas as categorias
@@ -62,7 +54,6 @@ class Categorias {
         }
     }
 
-    // Função que busca uma categoria específica pelo ID
     public function buscar($id) {
         try {
             // Prepara a consulta SQL para pegar uma categoria pelo ID
@@ -79,7 +70,6 @@ class Categorias {
         }
     }
 
-    // Função para editar uma categoria existente
     public function editar($id, $nome, $descricao) {
         try {
             // Prepara a consulta SQL para atualizar os dados da categoria no banco

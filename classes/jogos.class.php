@@ -1,23 +1,20 @@
 <?php
-// Requer a classe de conexão com o banco
 require 'conexao.class.php';
 
-// Classe Jogos, responsável por gerenciar os jogos no banco
 class Jogos {
-    private $id; // Armazena o ID do jogo
-    private $nome; // Armazena o nome do jogo
-    private $descricao; // Armazena a descrição do jogo
-    private $data_lancamento; // Armazena a data de lançamento do jogo
-    private $imagem; // Armazena o nome da imagem do jogo
+    private $id; 
+    private $nome; 
+    private $descricao; 
+    private $data_lancamento; 
+    private $imagem; 
 
-    private $con; // Vai armazenar a conexão com o banco
+    private $con; 
 
-    // Construtor da classe, basicamente cria a conexão com o banco
+    
     public function __construct() {
-        $this->con = new Conexao(); // Aqui ele instância a classe de conexão com o banco
+        $this->con = new Conexao(); 
     }
 
-    // Função privada que verifica se o jogo já existe no banco
     private function existeJogo($id_jogo) {
         // Prepara a consulta SQL para verificar se já existe um jogo com esse id
         $sql = $this->con->conectar()->prepare("SELECT id FROM jogos WHERE id = :id");
@@ -26,12 +23,11 @@ class Jogos {
         return $sql->rowCount() > 0; // Se encontrar, retorna TRUE
     }
 
-    // Função para adicionar um novo jogo no banco
     public function adicionar($nome, $descricao, $data_lancamento, $imagem) {
         try {
-            $this->nome = $nome; // Atribui o nome
-            $this->descricao = $descricao; // Atribui a descrição
-            $this->data_lancamento = $data_lancamento; // Atribui a data de lançamento
+            $this->nome = $nome; 
+            $this->descricao = $descricao; 
+            $this->data_lancamento = $data_lancamento; 
 
             // Verifica se uma imagem foi enviada
             if ($imagem && isset($imagem['tmp_name']) && $imagem['tmp_name'] !== '') {
@@ -57,7 +53,6 @@ class Jogos {
         }
     }
 
-    // Função para listar todos os jogos cadastrados
     public function listar() {
         try {
             // Prepara a consulta SQL para pegar todos os jogos
@@ -70,7 +65,6 @@ class Jogos {
         }
     }
 
-    // Função que busca um jogo pelo ID
     public function buscar($id) {
         try {
             // Prepara a consulta SQL para pegar o jogo pelo ID
@@ -88,7 +82,6 @@ class Jogos {
         }
     }
 
-    // Função para editar um jogo existente
     public function editar($nome, $descricao, $data_lancamento, $imagem, $id) {
         try {
             // Atualiza as informações do jogo no banco
@@ -125,7 +118,6 @@ class Jogos {
         }
     }
 
-    // Função para deletar um jogo pelo ID
     public function deletar($id) {
         try {
             // Prepara a consulta SQL para deletar o jogo

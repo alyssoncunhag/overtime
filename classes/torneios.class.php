@@ -11,22 +11,18 @@ class Torneios {
     private $imagem;
     private $con;
 
-    // Construtor da classe: Cria a conexão com o banco de dados
     public function __construct() {
-        $this->con = new Conexao(); // Estabelece a conexão com o banco
+        $this->con = new Conexao(); 
     }
 
-    // Método privado que verifica se um torneio com o mesmo nome já existe no banco de dados
     private function existeTorneio($nome) {
         $sql = $this->con->conectar()->prepare("SELECT id FROM torneios WHERE nome = :nome");
         $sql->bindParam(':nome', $nome, PDO::PARAM_STR);
         $sql->execute();
 
-        // Retorna true se o torneio já existir (rowCount > 0), caso contrário, false
         return $sql->rowCount() > 0;
     }
 
-    // Método para adicionar um novo torneio no banco de dados
     public function adicionar($nome, $id_jogos, $descricao, $data_inicio, $data_fim, $imagem = null) {
         // Verifica se o torneio com o nome fornecido já existe
         if (!$this->existeTorneio($nome)) {
@@ -64,7 +60,6 @@ class Torneios {
         }
     }
 
-    // Método para listar todos os torneios do banco de dados
     public function listar() {
         try {
             // Prepara e executa a consulta para selecionar todos os torneios
@@ -77,7 +72,6 @@ class Torneios {
         }
     }
 
-    // Método para buscar um torneio pelo ID
     public function buscar($id) {
         try {
             // Prepara a consulta para buscar o torneio com o ID fornecido
@@ -95,7 +89,6 @@ class Torneios {
         }
     }
 
-    // Método para editar um torneio existente no banco de dados
     public function editar($id, $nome, $id_jogos, $descricao, $data_inicio, $data_fim, $imagem = null) {
         try {
             // Verifica se o id_jogos existe no banco antes de atualizar o torneio
@@ -151,7 +144,6 @@ class Torneios {
         }
     }
 
-    // Método para deletar um torneio pelo ID
     public function deletar($id) {
         // Prepara e executa a consulta para deletar o torneio com o ID fornecido
         $sql = $this->con->conectar()->prepare("DELETE FROM torneios WHERE id = :id");

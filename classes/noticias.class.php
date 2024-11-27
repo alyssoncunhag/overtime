@@ -3,22 +3,20 @@
 require 'conexao.class.php';
 
 class Noticias {
-    private $id; // ID da notícia
-    private $titulo; // Título da notícia
-    private $conteudo; // Conteúdo da notícia
-    private $imagem; // Imagem associada à notícia
-    private $id_categorias; // Categoria da notícia (relacionada com tabela de categorias)
-    private $id_autor; // Autor da notícia (relacionada com tabela de usuários)
-    private $data_publicacao; // Data de publicação da notícia
+    private $id; 
+    private $titulo; 
+    private $conteudo; 
+    private $imagem; 
+    private $id_categorias; 
+    private $id_autor; 
+    private $data_publicacao; 
 
-    private $con; // Instância de conexão com o banco
+    private $con; 
 
-    // Construtor da classe, cria a conexão com o banco
     public function __construct() {
         $this->con = new Conexao(); // Instancia a classe de conexão
     }
 
-    // Função que verifica se uma notícia com o título especificado já existe no banco
     private function existeNoticia($titulo) {
         // Prepara uma consulta SQL para verificar a existência do título no banco
         $sql = $this->con->conectar()->prepare("SELECT id FROM noticias WHERE titulo = :titulo");
@@ -33,7 +31,6 @@ class Noticias {
         }
     }
 
-    // Função para adicionar uma nova notícia no banco
     public function adicionar($titulo, $conteudo, $imagem, $id_categorias, $id_autor, $data_publicacao) {
         // Verifica se a notícia já existe
         $existeNoticia = $this->existeNoticia($titulo);
@@ -69,7 +66,6 @@ class Noticias {
         }
     }
 
-    // Função para listar todas as notícias do banco
     public function listar() {
         try {
             // Prepara a consulta SQL para pegar todas as notícias
@@ -86,7 +82,6 @@ class Noticias {
         }
     }
 
-    // Função para buscar uma notícia pelo ID
     public function buscar($id) {
         try {
             // Prepara a consulta SQL para buscar a notícia pelo ID
@@ -104,7 +99,6 @@ class Noticias {
         }
     }
 
-    // Função para editar uma notícia existente
     public function editar($titulo, $conteudo, $imagem, $id_categorias, $id_autor, $data_publicacao, $id){
         // Verifica se a notícia com o mesmo título já existe (e se não é a mesma notícia)
         $noticiaExistente = $this->existeNoticia($titulo);
@@ -172,7 +166,7 @@ class Noticias {
         }
     }
 
-    // Função para deletar uma notícia do banco
+
     public function deletar($id) {
         // Prepara a consulta SQL para deletar a notícia
         $sql = $this->con->conectar()->prepare("DELETE FROM noticias WHERE id = :id");
